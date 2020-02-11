@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit
 @Suppress("DEPRECATION")
 class ManagerWorkerHelper() {
 
-    private val periodicBuilder = PeriodicWorkRequest.Builder(SettingWorker::class.java, 15, TimeUnit.MINUTES)
+    private val periodicBuilder = PeriodicWorkRequest.Builder(SettingWorker::class.java, 20, TimeUnit.MINUTES) // 20 minute
     private val myWork = periodicBuilder.addTag(SettingWorker.TAG).build()
 
     init {

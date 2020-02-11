@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AutoSoundMode</string>
+    <string name="app_name">Auto Change Sound Mode</string>
 
     <string name="main_time_start">Thời gian bắt đầu *</string>
     <string name="main_word_day">Ngày làm việc trong tuần</string>

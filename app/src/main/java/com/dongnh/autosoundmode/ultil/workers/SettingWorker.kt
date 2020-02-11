@@ -17,7 +17,7 @@ class SettingWorker(val context: Context, params: WorkerParameters) : Worker(con
         val TAG = SettingWorker::class.java.simpleName
     }
 
-    val sharedPreferences: SharePreferenceHelper = get()
+    private val sharedPreferences: SharePreferenceHelper = get()
 
     override fun doWork(): Result {
 
@@ -96,6 +96,9 @@ class SettingWorker(val context: Context, params: WorkerParameters) : Worker(con
         return Result.success()
     }
 
+    /**
+     * Update mode
+     */
     private fun changeModeOfAudioManager(mode: Int) {
         try {
             val auManager =
