@@ -17,6 +17,10 @@
     <string name="main_dialog_mess_today"> hôm nay</string>
     <string name="main_dialog_mess_tomoro"> hôm sau.</string>
 
+    <string name="main_view_sound">Chuông</string>
+    <string name="main_view_vibrate">Rung</string>
+    <string name="main_view_silent">Im lặng</string>
+
     <string name="main_dialog_mess_error_time">Thời gian kết thúc không được phép nhỏ hơn thời gian bắt đầu.</string>
     <string name="main_dialog_mess_cancel_all">Đã dừng tất cả các dịch vụ chạy ngầm.</string>
 

@@ -10,7 +10,7 @@
 
     </data>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -94,6 +94,139 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:orientation="horizontal"
+                android:weightSum="3"
+                android:layout_marginTop="@dimen/margin_common"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/view_normal"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="@dimen/margin_common"
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="@dimen/height_image_big"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/margin_common"
+                        android:layout_marginBottom="@dimen/margin_common"
+                        android:src="@drawable/ic_sound"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:textColor="@color/black"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:lines="2"
+                        android:layout_marginBottom="@dimen/margin_common"
+                        android:text="@string/main_view_sound"
+                        style="@style/RobotoTextViewStyleLargerWrap"
+                        android:layout_height="wrap_content" />
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:clickable="false"
+                        android:checked="@={viewModel.isNormal}"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:id="@+id/view_vibrate"
+                    android:layout_marginEnd="@dimen/margin_common"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="@dimen/height_image_big"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/margin_common"
+                        android:layout_marginBottom="@dimen/margin_common"
+                        android:src="@drawable/ic_vibrate"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:textColor="@color/black"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_marginBottom="@dimen/margin_common"
+                        android:lines="2"
+                        android:text="@string/main_view_vibrate"
+                        style="@style/RobotoTextViewStyleLargerWrap"
+                        android:layout_height="wrap_content" />
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:clickable="false"
+                        android:checked="@={viewModel.isVibrate}"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:id="@+id/view_silent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="@dimen/height_image_big"
+                        android:adjustViewBounds="true"
+                        android:scaleType="centerCrop"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/margin_common"
+                        android:layout_marginBottom="@dimen/margin_common"
+                        android:src="@drawable/ic_silent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:textColor="@color/black"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:lines="2"
+                        android:layout_marginBottom="@dimen/margin_common"
+                        android:text="@string/main_view_silent"
+                        style="@style/RobotoTextViewStyleLargerWrap"
+                        android:layout_height="wrap_content" />
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:clickable="false"
+                        android:checked="@={viewModel.isSilent}"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_alignParentBottom="true"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
                 android:weightSum="1"
                 android:layout_height="wrap_content">
 
@@ -136,6 +269,6 @@
 
         </LinearLayout>
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </layout>

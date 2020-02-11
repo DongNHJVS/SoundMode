@@ -2,9 +2,12 @@ package com.dongnh.autosoundmode.view
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.NotificationManager
 import android.app.TimePickerDialog
 import android.app.TimePickerDialog.OnTimeSetListener
+import android.content.Context
 import android.content.DialogInterface
+import android.media.AudioManager
 import android.os.Build
 import android.os.Bundle
 import android.view.View
@@ -45,8 +48,8 @@ class MainActivity : AppCompatActivity() {
         // Init databinding and viewmodel
         this@MainActivity.dataBinding =
             DataBindingUtil.setContentView(this@MainActivity, R.layout.activity_main)
-        this@MainActivity.dataBinding.viewModel = this@MainActivity.viewModelMain
         this@MainActivity.dataBinding.lifecycleOwner = this@MainActivity
+        this@MainActivity.dataBinding.viewModel = this@MainActivity.viewModelMain
 
         // Hide keyboard
         setupUIHideKeyBoard(this@MainActivity.dataBinding.root, this@MainActivity)
@@ -59,6 +62,8 @@ class MainActivity : AppCompatActivity() {
         setUpDefaultTime()
         setUpButtonClick()
         setUpEventCLickTime()
+        setUpEventClickChange()
+        updateModeForView()
     }
 
     /**
@@ -79,11 +84,11 @@ class MainActivity : AppCompatActivity() {
                 SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date())
         }
 
-        viewModelMain.timeStart = timeStart.toString()
-        viewModelMain.timeEnd = timeEnd.toString()
+        viewModelMain.timeStart.value = timeStart.toString()
+        viewModelMain.timeEnd.value = timeEnd.toString()
 
         // Is workday checked
-        viewModelMain.isWorkday = sharePreferenceHelper.getDataBoolean(IS_WORK_DAY)!!
+        viewModelMain.isWorkday.value = sharePreferenceHelper.getDataBoolean(IS_WORK_DAY)!!
     }
 
     /**
@@ -92,12 +97,12 @@ class MainActivity : AppCompatActivity() {
     private fun setUpButtonClick() {
         // Btn execute
         dataBinding.btnExecute.setOnClickListener {
-            sharePreferenceHelper.setDataStringKeyValue(TIME_START, viewModelMain.timeStart)
-            sharePreferenceHelper.setDataStringKeyValue(TIME_END, viewModelMain.timeEnd)
-            sharePreferenceHelper.setDataBooleKeyValue(IS_WORK_DAY, viewModelMain.isWorkday)
+            sharePreferenceHelper.setDataStringKeyValue(TIME_START, viewModelMain.timeStart.value!!)
+            sharePreferenceHelper.setDataStringKeyValue(TIME_END, viewModelMain.timeEnd.value!!)
+            sharePreferenceHelper.setDataBooleKeyValue(IS_WORK_DAY, viewModelMain.isWorkday.value!!)
 
-            if (viewModelMain.isWorkday) {
-                if (viewModelMain.timeStart > viewModelMain.timeEnd) {
+            if (viewModelMain.isWorkday.value!!) {
+                if (viewModelMain.timeStart.value!! > viewModelMain.timeEnd.value!!) {
                     initDialogMessage(getString(R.string.main_dialog_mess_error_time))
                     return@setOnClickListener
                 }
@@ -119,6 +124,26 @@ class MainActivity : AppCompatActivity() {
             sharePreferenceHelper.setDataBooleKeyValue(IS_WORK_DAY, false)
             setUpDefaultTime()
             initDialogMessage(getString(R.string.main_dialog_mess_cancel_all))
+        }
+    }
+
+    /**
+     * Setup event change mode when click
+     */
+    private fun setUpEventClickChange() {
+        dataBinding.viewNormal.setOnClickListener {
+            changeModeOfAudioManager(AudioManager.RINGER_MODE_NORMAL)
+            updateModeForView()
+        }
+
+        dataBinding.viewVibrate.setOnClickListener {
+            changeModeOfAudioManager(AudioManager.RINGER_MODE_VIBRATE)
+            updateModeForView()
+        }
+
+        dataBinding.viewSilent.setOnClickListener {
+            changeModeOfAudioManager(0)
+            updateModeForView()
         }
     }
 
@@ -242,12 +267,12 @@ class MainActivity : AppCompatActivity() {
 
         // Setting Dialog Message
         var message = getString(R.string.main_dialog_mess)
-        if (viewModelMain.isWorkday) {
+        if (viewModelMain.isWorkday.value!!) {
             message += " " + getString(R.string.main_dialog_mess_work_day)
         } else {
             message += " " + getString(R.string.main_dialog_mess_non_work_day)
 
-            if (viewModelMain.timeStart > viewModelMain.timeEnd) {
+            if (viewModelMain.timeStart.value!! > viewModelMain.timeEnd.value!!) {
                 message += getString(R.string.main_dialog_mess_start) + " " + viewModelMain.timeStart + getString(R.string.main_dialog_mess_today) + " "
                 message += getString(R.string.main_dialog_mess_end) + " " + viewModelMain.timeEnd + getString(R.string.main_dialog_mess_tomoro)
 
@@ -295,6 +320,63 @@ class MainActivity : AppCompatActivity() {
 
         if (!(this@MainActivity).isFinishing && !dialog?.isShowing!!) {
             dialog?.show()
+        }
+    }
+
+    /**
+     * Update mode
+     */
+    private fun changeModeOfAudioManager(mode: Int) {
+        try {
+            val auManager =
+                this@MainActivity.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+            auManager.ringerMode = mode
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && mode == AudioManager.RINGER_MODE_SILENT) {
+                (getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager).setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_NONE)
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    /**
+     * Get mode
+     */
+    private fun getModeAudioManager() : Int {
+        try {
+            val auManager =
+                this@MainActivity.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+            return auManager.ringerMode
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return -1
+    }
+
+    /**
+     * Update mode for view in layout
+     */
+    private fun updateModeForView() {
+        when (getModeAudioManager()) {
+            AudioManager.RINGER_MODE_NORMAL -> {
+                viewModelMain.isNormal.value = true
+                viewModelMain.isVibrate.value = false
+                viewModelMain.isSilent.value = false
+            }
+            AudioManager.RINGER_MODE_VIBRATE -> {
+                viewModelMain.isNormal.value = false
+                viewModelMain.isVibrate.value = true
+                viewModelMain.isSilent.value = false
+            }
+            AudioManager.RINGER_MODE_SILENT -> {
+                viewModelMain.isNormal.value = false
+                viewModelMain.isVibrate.value = false
+                viewModelMain.isSilent.value = true
+            }
+            else -> {
+                // Not know
+            }
         }
     }
 }
