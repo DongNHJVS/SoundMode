@@ -4,11 +4,21 @@
     <string name="main_time_start">Thời gian bắt đầu *</string>
     <string name="main_word_day">Ngày làm việc trong tuần</string>
     <string name="main_time_end">Thời gian kết thúc *</string>
+
     <string name="main_btn_execute">Thực hiện</string>
-    <string name="main_btn_cancel">Thoát</string>
+    <string name="main_btn_cancel">Đặt lại</string>
+    <string name="main_btn_exit">Thoát</string>
+
     <string name="main_dialog_mess">Đã đăng ký thành công chế độ tự khởi động bật tắt mode</string>
     <string name="main_dialog_mess_work_day"> theo ngày làm việc.</string>
     <string name="main_dialog_mess_non_work_day"> cho ngày hiện tại.</string>
+    <string name="main_dialog_mess_start">Bắt đầu từ</string>
+    <string name="main_dialog_mess_end">đến</string>
+    <string name="main_dialog_mess_today"> hôm nay</string>
+    <string name="main_dialog_mess_tomoro"> hôm sau.</string>
+
+    <string name="main_dialog_mess_error_time">Thời gian kết thúc không được phép nhỏ hơn thời gian bắt đầu.</string>
+    <string name="main_dialog_mess_cancel_all">Đã dừng tất cả các dịch vụ chạy ngầm.</string>
 
     <string name="common_dialog_btn_ok">Đồng ý</string>
 </resources>

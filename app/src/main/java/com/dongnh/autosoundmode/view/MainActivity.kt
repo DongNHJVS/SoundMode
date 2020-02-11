@@ -18,10 +18,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.dongnh.autosoundmode.R
-import com.dongnh.autosoundmode.const.IS_WORK_DAY
-import com.dongnh.autosoundmode.const.TIME_END
-import com.dongnh.autosoundmode.const.TIME_START
+import com.dongnh.autosoundmode.const.*
 import com.dongnh.autosoundmode.databinding.ActivityMainBinding
+import com.dongnh.autosoundmode.ultil.helper.ManagerWorkerHelper
 import com.dongnh.autosoundmode.ultil.helper.SharePreferenceHelper
 import com.dongnh.autosoundmode.viewmodel.MainViewModel
 import org.koin.android.ext.android.get
@@ -33,11 +32,12 @@ class MainActivity : AppCompatActivity() {
 
     private var viewModelMain: MainViewModel = get()
     private var sharePreferenceHelper: SharePreferenceHelper = get()
+    private var workerHelper: ManagerWorkerHelper = get()
     private lateinit var dataBinding: ActivityMainBinding
 
     // Show dialog
-    var alertBuild: AlertDialog.Builder? = null
-    var dialog: AlertDialog? = null
+    private var alertBuild: AlertDialog.Builder? = null
+    private var dialog: AlertDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,7 +83,7 @@ class MainActivity : AppCompatActivity() {
         viewModelMain.timeEnd = timeEnd.toString()
 
         // Is workday checked
-        viewModelMain.isWorkday = sharePreferenceHelper.getDataBoolen(IS_WORK_DAY)!!
+        viewModelMain.isWorkday = sharePreferenceHelper.getDataBoolean(IS_WORK_DAY)!!
     }
 
     /**
@@ -95,16 +95,37 @@ class MainActivity : AppCompatActivity() {
             sharePreferenceHelper.setDataStringKeyValue(TIME_START, viewModelMain.timeStart)
             sharePreferenceHelper.setDataStringKeyValue(TIME_END, viewModelMain.timeEnd)
             sharePreferenceHelper.setDataBooleKeyValue(IS_WORK_DAY, viewModelMain.isWorkday)
+
+            if (viewModelMain.isWorkday) {
+                if (viewModelMain.timeStart > viewModelMain.timeEnd) {
+                    initDialogMessage(getString(R.string.main_dialog_mess_error_time))
+                    return@setOnClickListener
+                }
+            }
+
+            initDialogOK()
         }
 
+        // Btn exit app
         dataBinding.btnExit.setOnClickListener {
+           this@MainActivity.onBackPressed()
+        }
 
+        // Btn cancel all worker
+        dataBinding.btnCancel.setOnClickListener {
+            workerHelper.cancelAllWorker()
+            sharePreferenceHelper.setDataStringKeyValue(TIME_START, "")
+            sharePreferenceHelper.setDataStringKeyValue(TIME_END, "")
+            sharePreferenceHelper.setDataBooleKeyValue(IS_WORK_DAY, false)
+            setUpDefaultTime()
+            initDialogMessage(getString(R.string.main_dialog_mess_cancel_all))
         }
     }
 
     /**
      * Setup event click on select time
      */
+    @Suppress("DEPRECATION")
     private fun setUpEventCLickTime() {
         dataBinding.viewDateStart.setOnClickListener {
             // Get Current Time
@@ -116,7 +137,7 @@ class MainActivity : AppCompatActivity() {
             @SuppressLint("SetTextI18n") val timePickerDialog = TimePickerDialog(
                 this@MainActivity,
                 android.R.style.Theme_Holo_Light_Dialog_NoActionBar,
-                OnTimeSetListener { view: TimePicker?, hourOfDay: Int, minute: Int ->
+                OnTimeSetListener { _: TimePicker?, hourOfDay: Int, minute: Int ->
                     var hour = hourOfDay.toString()
                     if (hourOfDay < 10) {
                         hour = "0$hour"
@@ -145,7 +166,7 @@ class MainActivity : AppCompatActivity() {
             @SuppressLint("SetTextI18n") val timePickerDialog = TimePickerDialog(
                 this@MainActivity,
                 android.R.style.Theme_Holo_Light_Dialog_NoActionBar,
-                OnTimeSetListener { view: TimePicker?, hourOfDay: Int, minute: Int ->
+                OnTimeSetListener { _: TimePicker?, hourOfDay: Int, minute: Int ->
                     var hour = hourOfDay.toString()
                     if (hourOfDay < 10) {
                         hour = "0$hour"
@@ -211,15 +232,33 @@ class MainActivity : AppCompatActivity() {
         alertBuild!!.setPositiveButton(getString(R.string.common_dialog_btn_ok)) { _: DialogInterface, _: Int ->
             // Exit activity
             dialog?.dismiss()
+            workerHelper.cancelAllWorker()
+            workerHelper.addWorkerToManager()
             this@MainActivity.onBackPressed()
         }
+
+        // Set default for flag next day
+        sharePreferenceHelper.setDataBooleKeyValue(TO_NEXT_DAY, false)
+
         // Setting Dialog Message
         var message = getString(R.string.main_dialog_mess)
         if (viewModelMain.isWorkday) {
-            message += getString(R.string.main_dialog_mess_work_day)
+            message += " " + getString(R.string.main_dialog_mess_work_day)
         } else {
-            message += getString(R.string.main_dialog_mess_non_work_day)
+            message += " " + getString(R.string.main_dialog_mess_non_work_day)
+
+            if (viewModelMain.timeStart > viewModelMain.timeEnd) {
+                message += getString(R.string.main_dialog_mess_start) + " " + viewModelMain.timeStart + getString(R.string.main_dialog_mess_today) + " "
+                message += getString(R.string.main_dialog_mess_end) + " " + viewModelMain.timeEnd + getString(R.string.main_dialog_mess_tomoro)
+
+                // Next day is true
+                sharePreferenceHelper.setDataBooleKeyValue(TO_NEXT_DAY, true)
+                sharePreferenceHelper.setDataIntKeyValue(
+                    CURRENT_DATE,
+                    Calendar.getInstance().get(Calendar.DATE))
+            }
         }
+
         alertBuild!!.setMessage(message)
         alertBuild!!.setCancelable(false)
 
@@ -232,6 +271,30 @@ class MainActivity : AppCompatActivity() {
 
         if (!(this@MainActivity).isFinishing && !dialog!!.isShowing) {
             dialog!!.show()
+        }
+    }
+
+    /**
+     * Create dialog
+     */
+    private fun initDialogMessage(message: String) {
+        alertBuild = AlertDialog.Builder(this@MainActivity, R.style.cust_dialog)
+        // On pressing Settings button
+        alertBuild?.setPositiveButton(getString(R.string.common_dialog_btn_ok)) { _: DialogInterface, _: Int ->
+            dialog?.dismiss()
+        }
+        // Setting Dialog Message
+        alertBuild?.setMessage(message)
+        alertBuild?.setCancelable(false)
+
+        // Showing Alert Message
+        alertBuild?.setTitle("")
+        dialog?.dismiss()
+        dialog = alertBuild?.create()
+        dialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
+
+        if (!(this@MainActivity).isFinishing && !dialog?.isShowing!!) {
+            dialog?.show()
         }
     }
 }

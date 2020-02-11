@@ -4,6 +4,7 @@ import androidx.multidex.MultiDex
 import androidx.multidex.MultiDexApplication
 import com.dongnh.autosoundmode.di.sharePreferenceModule
 import com.dongnh.autosoundmode.di.viewModelModule
+import com.dongnh.autosoundmode.di.workModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import timber.log.Timber
@@ -27,7 +28,8 @@ class App : MultiDexApplication() {
             modules(
                 listOf(
                     viewModelModule,
-                    sharePreferenceModule
+                    sharePreferenceModule,
+                    workModule
                 )
             )
         }
