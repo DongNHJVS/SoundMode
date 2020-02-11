@@ -26,6 +26,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin_common"
                 android:background="@drawable/background_inputtext"
                 android:gravity="center"
                 android:orientation="horizontal"
@@ -36,13 +37,13 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.4"
-                    android:text="@string/report_date_start" />
+                    android:text="@string/main_time_start" />
 
                 <EditText
                     android:id="@+id/view_date_start"
                     style="@style/EditTextThemeNormal"
                     android:layout_width="0dp"
-                    android:enabled="false"
+                    android:focusable="false"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.6"
                     android:background="@drawable/background_inputtext"
@@ -55,6 +56,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin_common"
                 android:background="@drawable/background_inputtext"
                 android:gravity="center"
                 android:orientation="horizontal"
@@ -65,13 +67,13 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.4"
-                    android:text="@string/report_date_end" />
+                    android:text="@string/main_time_end" />
 
                 <EditText
                     android:id="@+id/view_date_end"
                     style="@style/EditTextThemeNormal"
                     android:layout_width="0dp"
-                    android:enabled="false"
+                    android:focusable="false"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.6"
                     android:background="@drawable/background_inputtext"
@@ -84,7 +86,8 @@
                 android:id="@+id/is_work_day"
                 android:layout_width="match_parent"
                 android:layout_marginTop="@dimen/margin_common"
-                android:text="@string/report_date_word_day"
+                android:text="@string/main_word_day"
+                android:checked="@={viewModel.workday}"
                 style="@style/RobotoTextViewStyle"
                 android:layout_height="wrap_content"/>
 
@@ -95,13 +98,13 @@
                 android:layout_height="wrap_content">
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_excute"
+                    android:id="@+id/btn_execute"
                     android:layout_width="0dp"
                     android:layout_weight="0.5"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin_common"
                     android:background="@drawable/background_button"
-                    android:text="@string/report_date_btn_excute"
+                    android:text="@string/main_btn_execute"
                     android:textColor="@color/white"
                     android:gravity="center"
                     android:textSize="@dimen/size_text_btn" />
@@ -114,7 +117,7 @@
                     android:gravity="center"
                     android:layout_margin="@dimen/margin_common"
                     android:background="@drawable/background_button_red"
-                    android:text="@string/report_date_btn_cancel"
+                    android:text="@string/main_btn_cancel"
                     android:textColor="@color/white"
                     android:textSize="@dimen/size_text_btn" />
 

@@ -1,9 +1,14 @@
 <resources>
     <string name="app_name">AutoSoundMode</string>
 
-    <string name="report_date_start">Thời gian bắt đầu *</string>
-    <string name="report_date_word_day">Ngày làm việc trong tuần</string>
-    <string name="report_date_end">Thời gian kết thúc *</string>
-    <string name="report_date_btn_excute">Thực hiện</string>
-    <string name="report_date_btn_cancel">Thoát</string>
+    <string name="main_time_start">Thời gian bắt đầu *</string>
+    <string name="main_word_day">Ngày làm việc trong tuần</string>
+    <string name="main_time_end">Thời gian kết thúc *</string>
+    <string name="main_btn_execute">Thực hiện</string>
+    <string name="main_btn_cancel">Thoát</string>
+    <string name="main_dialog_mess">Đã đăng ký thành công chế độ tự khởi động bật tắt mode</string>
+    <string name="main_dialog_mess_work_day"> theo ngày làm việc.</string>
+    <string name="main_dialog_mess_non_work_day"> cho ngày hiện tại.</string>
+
+    <string name="common_dialog_btn_ok">Đồng ý</string>
 </resources>

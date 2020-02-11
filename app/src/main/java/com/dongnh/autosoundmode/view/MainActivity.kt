@@ -1,30 +1,50 @@
 package com.dongnh.autosoundmode.view
 
+import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.TimePickerDialog
+import android.app.TimePickerDialog.OnTimeSetListener
+import android.content.DialogInterface
 import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.view.inputmethod.InputMethodManager
 import android.widget.AutoCompleteTextView
+import android.widget.TimePicker
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.dongnh.autosoundmode.R
+import com.dongnh.autosoundmode.const.IS_WORK_DAY
+import com.dongnh.autosoundmode.const.TIME_END
+import com.dongnh.autosoundmode.const.TIME_START
 import com.dongnh.autosoundmode.databinding.ActivityMainBinding
+import com.dongnh.autosoundmode.ultil.helper.SharePreferenceHelper
 import com.dongnh.autosoundmode.viewmodel.MainViewModel
 import org.koin.android.ext.android.get
+import java.text.SimpleDateFormat
+import java.util.*
+
 
 class MainActivity : AppCompatActivity() {
 
     private var viewModelMain: MainViewModel = get()
+    private var sharePreferenceHelper: SharePreferenceHelper = get()
     private lateinit var dataBinding: ActivityMainBinding
+
+    // Show dialog
+    var alertBuild: AlertDialog.Builder? = null
+    var dialog: AlertDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         // Init databinding and viewmodel
-        this@MainActivity.dataBinding = DataBindingUtil.setContentView(this@MainActivity, R.layout.activity_main)
+        this@MainActivity.dataBinding =
+            DataBindingUtil.setContentView(this@MainActivity, R.layout.activity_main)
         this@MainActivity.dataBinding.viewModel = this@MainActivity.viewModelMain
         this@MainActivity.dataBinding.lifecycleOwner = this@MainActivity
 
@@ -34,6 +54,114 @@ class MainActivity : AppCompatActivity() {
         // Status color
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.statusBarColor = ContextCompat.getColor(this@MainActivity, R.color.colorPrimary)
+        }
+
+        setUpDefaultTime()
+        setUpButtonClick()
+        setUpEventCLickTime()
+    }
+
+    /**
+     * Setup view time for layout
+     */
+    private fun setUpDefaultTime() {
+        var timeStart = sharePreferenceHelper.getDataString(TIME_START)
+        var timeEnd = sharePreferenceHelper.getDataString(TIME_END)
+
+        if (timeStart.isNullOrEmpty()) {
+            timeStart =
+                SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date())
+
+        }
+
+        if (timeEnd.isNullOrEmpty()) {
+            timeEnd =
+                SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date())
+        }
+
+        viewModelMain.timeStart = timeStart.toString()
+        viewModelMain.timeEnd = timeEnd.toString()
+
+        // Is workday checked
+        viewModelMain.isWorkday = sharePreferenceHelper.getDataBoolen(IS_WORK_DAY)!!
+    }
+
+    /**
+     * Button click event
+     */
+    private fun setUpButtonClick() {
+        // Btn execute
+        dataBinding.btnExecute.setOnClickListener {
+            sharePreferenceHelper.setDataStringKeyValue(TIME_START, viewModelMain.timeStart)
+            sharePreferenceHelper.setDataStringKeyValue(TIME_END, viewModelMain.timeEnd)
+            sharePreferenceHelper.setDataBooleKeyValue(IS_WORK_DAY, viewModelMain.isWorkday)
+        }
+
+        dataBinding.btnExit.setOnClickListener {
+
+        }
+    }
+
+    /**
+     * Setup event click on select time
+     */
+    private fun setUpEventCLickTime() {
+        dataBinding.viewDateStart.setOnClickListener {
+            // Get Current Time
+            val c = Calendar.getInstance()
+            val mHour = c[Calendar.HOUR_OF_DAY]
+            val mMinute = c[Calendar.MINUTE]
+
+            // Launch Time Picker Dialog
+            @SuppressLint("SetTextI18n") val timePickerDialog = TimePickerDialog(
+                this@MainActivity,
+                android.R.style.Theme_Holo_Light_Dialog_NoActionBar,
+                OnTimeSetListener { view: TimePicker?, hourOfDay: Int, minute: Int ->
+                    var hour = hourOfDay.toString()
+                    if (hourOfDay < 10) {
+                        hour = "0$hour"
+                    }
+                    var minuteString = minute.toString()
+                    if (minute < 10) {
+                        minuteString = "0$minuteString"
+                    }
+                    dataBinding.viewDateStart.setText("$hour:$minuteString")
+                },
+                mHour,
+                mMinute,
+                false
+            )
+            timePickerDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+            timePickerDialog.show()
+        }
+
+        dataBinding.viewDateEnd.setOnClickListener {
+            // Get Current Time
+            val c = Calendar.getInstance()
+            val mHour = c[Calendar.HOUR_OF_DAY]
+            val mMinute = c[Calendar.MINUTE]
+
+            // Launch Time Picker Dialog
+            @SuppressLint("SetTextI18n") val timePickerDialog = TimePickerDialog(
+                this@MainActivity,
+                android.R.style.Theme_Holo_Light_Dialog_NoActionBar,
+                OnTimeSetListener { view: TimePicker?, hourOfDay: Int, minute: Int ->
+                    var hour = hourOfDay.toString()
+                    if (hourOfDay < 10) {
+                        hour = "0$hour"
+                    }
+                    var minuteString = minute.toString()
+                    if (minute < 10) {
+                        minuteString = "0$minuteString"
+                    }
+                    dataBinding.viewDateEnd.setText("$hour:$minuteString")
+                },
+                mHour,
+                mMinute,
+                false
+            )
+            timePickerDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+            timePickerDialog.show()
         }
     }
 
@@ -69,9 +197,41 @@ class MainActivity : AppCompatActivity() {
                     activity.currentFocus!!.windowToken, 0
                 )
             }
-
         } catch (e: Exception) {
             e.printStackTrace()
+        }
+    }
+
+    /**
+     * Create dialog
+     */
+    private fun initDialogOK() {
+        alertBuild = AlertDialog.Builder(this@MainActivity, R.style.cust_dialog)
+        // On pressing Settings button
+        alertBuild!!.setPositiveButton(getString(R.string.common_dialog_btn_ok)) { _: DialogInterface, _: Int ->
+            // Exit activity
+            dialog?.dismiss()
+            this@MainActivity.onBackPressed()
+        }
+        // Setting Dialog Message
+        var message = getString(R.string.main_dialog_mess)
+        if (viewModelMain.isWorkday) {
+            message += getString(R.string.main_dialog_mess_work_day)
+        } else {
+            message += getString(R.string.main_dialog_mess_non_work_day)
+        }
+        alertBuild!!.setMessage(message)
+        alertBuild!!.setCancelable(false)
+
+        // Showing Alert Message
+        alertBuild!!.setTitle("")
+
+        dialog?.dismiss()
+        dialog = alertBuild!!.create()
+        dialog!!.requestWindowFeature(Window.FEATURE_NO_TITLE)
+
+        if (!(this@MainActivity).isFinishing && !dialog!!.isShowing) {
+            dialog!!.show()
         }
     }
 }

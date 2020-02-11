@@ -13,7 +13,8 @@
         android:theme="@style/AppThemeLight"
         tools:ignore="GoogleAppIndexingWarning">
 
-        <activity android:name=".view.MainActivity">
+        <activity android:name=".view.MainActivity"
+            android:windowSoftInputMode="stateAlwaysHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
