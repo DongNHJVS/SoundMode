@@ -1,7 +1,8 @@
-package com.dongnh.autosoundmode
+package com.dongnh.autosoundmode.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import com.dongnh.autosoundmode.R
 
 class MainActivity : AppCompatActivity() {
 

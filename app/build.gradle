@@ -44,12 +44,18 @@ dependencies {
     def timber_version = "4.7.1"
     def appcompat_version = "1.1.0"
     def worker_version = "2.3.1"
+    def koin_version = "2.0.1"
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     // Kotlin
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "androidx.core:core-ktx:$core_ktx_version"
+
+    // Koin
+    implementation "org.koin:koin-android:$koin_version"
+    implementation "org.koin:koin-androidx-scope:$koin_version"
+    implementation "org.koin:koin-androidx-viewmodel:$koin_version"
 
     // View
     implementation "androidx.appcompat:appcompat:$appcompat_version"
