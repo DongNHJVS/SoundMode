@@ -1,0 +1,92 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="nav_header_vertical_spacing">8dp</dimen>
+    <dimen name="nav_header_height">176dp</dimen>
+    <dimen name="nav_header_height_button">280dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+
+    <!-- size of text -->
+    <dimen name="size_text_larger_money">22sp</dimen>
+    <dimen name="size_text_larger">18sp</dimen>
+    <dimen name="size_text_all">16sp</dimen>
+    <dimen name="size_text_mini">14sp</dimen>
+    <dimen name="size_text_button">15sp</dimen>
+    <dimen name="size_text_error">12sp</dimen>
+    <dimen name="size_text_super_mini">10sp</dimen>
+    <dimen name="size_text_input">16sp</dimen>
+    <dimen name="size_text_btn">18sp</dimen>
+
+    <!-- margin -->
+    <dimen name="margin_common">5dp</dimen>
+    <dimen name="margin_material">16dp</dimen>
+    <dimen name="margin_bottom_sheet">25dp</dimen>
+    <dimen name="margin_mini">3dp</dimen>
+    <dimen name="margin_top_confirm">70dp</dimen>
+    <dimen name="margin_top_viewnull">90dp</dimen>
+    <dimen name="margin_end_btn">9dp</dimen>
+
+    <dimen name="margin_mini_textview">1dp</dimen>
+    <dimen name="height_button_shoot">90dp</dimen>
+    <dimen name="height_button_shoot_account">60dp</dimen>
+    <dimen name="height_button_mini">20dp</dimen>
+    <dimen name="height_button_menu">30dp</dimen>
+    <dimen name="height_text_dialog">40dp</dimen>
+
+    <!-- height -->
+    <dimen name="height_button">30dp</dimen>
+    <dimen name="height_imageview">90dp</dimen>
+    <dimen name="height_imageview_account">60dp</dimen>
+
+    <!-- background -->
+    <dimen name="border_view">1dp</dimen>
+    <dimen name="radius_view">5dp</dimen>
+    <dimen name="radius_border_edittext">4dp</dimen>
+    <dimen name="radius_border_fragment_dialog">25dp</dimen>
+    <dimen name="radius_border_btn">10dp</dimen>
+
+    <dimen name="width_border_edittext">0.5dp</dimen>
+    <dimen name="width_border_linear_entity">1dp</dimen>
+    <dimen name="width_border_btn">1dp</dimen>
+    <dimen name="elevation_cardview">1dp</dimen>
+    <dimen name="elevation_cardview_date">6dp</dimen>
+    <dimen name="max_elevation_cardview">6dp</dimen>
+    <dimen name="stroke_width_cardview">0.5dp</dimen>
+
+    <!-- padding -->
+    <dimen name="padding_left_text">5dp</dimen>
+    <dimen name="padding_right_text">5dp</dimen>
+    <dimen name="padding_last_item">5dp</dimen>
+    <dimen name="padding_button_inside">9dp</dimen>
+    <dimen name="padding_inside_cardview">3dp</dimen>
+    <dimen name="padding_vertical_margin">20dp</dimen>
+    <dimen name="padding_right_drawn">30dp</dimen>
+    <dimen name="padding_vertical_margin_min">10dp</dimen>
+
+    <!-- button in edittext -->
+    <dimen name="height_button_inside">23dp</dimen>
+
+    <!-- height -->
+    <dimen name="height_edittext">40dp</dimen>
+    <dimen name="height_linear">60dp</dimen>
+    <dimen name="height_image">30dp</dimen>
+    <dimen name="height_image_edit">22dp</dimen>
+    <dimen name="height_image_provider">40dp</dimen>
+    <dimen name="height_image_big">65dp</dimen>
+    <dimen name="height_image_big_icon">135dp</dimen>
+    <dimen name="height_of_chart">300dp</dimen>
+
+    <dimen name="app_default_input_corner">6dp</dimen>
+    <dimen name="app_default_no_corner">10dp</dimen>
+
+    <!-- weight -->
+    <dimen name="width_min_dialog_btn">100dp</dimen>
+    <dimen name="width_btn">200dp</dimen>
+
+    <!-- corners -->
+    <dimen name="corner_of_all">50dp</dimen>
+    <dimen name="corner_card_view">19dp</dimen>
+    <dimen name="corner_card_zero">1dp</dimen>
+
+</resources>

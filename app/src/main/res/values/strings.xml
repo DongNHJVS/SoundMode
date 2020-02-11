@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">AutoSoundMode</string>
+
+    <string name="report_date_start">Thời gian bắt đầu *</string>
+    <string name="report_date_word_day">Ngày làm việc trong tuần</string>
+    <string name="report_date_end">Thời gian kết thúc *</string>
+    <string name="report_date_btn_excute">Thực hiện</string>
+    <string name="report_date_btn_cancel">Thoát</string>
 </resources>

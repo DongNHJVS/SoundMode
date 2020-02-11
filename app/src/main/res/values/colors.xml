@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimary">#0DAE64</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="blue_app">#0000ff</color>
+    <color name="blue_link">#0645AD</color>
+    <color name="color_default_btn">#ea9b82</color>
+    <color name="dark">#757575</color>
+    <color name="darkPale">#e2e0e1</color>
+    <color name="black">#000000</color>
+    <color name="green">#00ff00</color>
+    <color name="red">#ff0000</color>
+    <color name="transparent">#00000000</color>
+    <color name="greenPale">#7eff5e</color>
+    <color name="greenPaleHigh">#A4FF0E</color>
+    <color name="pink">#FF00FF</color>
+    <color name="dark_pink">#FF1493</color>
+    <color name="yellow">#FFFF00</color>
+    <color name="yellowPale_2">#FFA500</color>
+    <color name="yellowPale">#fffc70</color>
+    <color name="yellowGreen">#9ACD32</color>
+    <color name="orange">#FFA500</color>
+
+    <color name="color_input_text">#f5f6f9</color>
 </resources>

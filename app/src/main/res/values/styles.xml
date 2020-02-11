@@ -1,11 +1,276 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppThemeLight" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
+        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:statusBarColor" tools:targetApi="lollipop">@color/yellowGreen</item>
+
+        <item name="android:navigationBarColor" tools:targetApi="lollipop">@color/colorPrimary</item>
+
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:editTextStyle">@style/EditTextTheme</item>
+        <item name="editTextStyle">@style/EditTextTheme</item>
+        <item name="android:textViewStyle">@style/RobotoTextViewStyle</item>
+        <item name="buttonStyle">@style/RobotoButtonStyle</item>
+        <item name="android:buttonStyle">@style/RobotoButtonStyle</item>
+        <item name="textInputStyle">@style/TextInputLayoutAppearance</item>
+    </style>
+
+    <!-- This will set the fade in animation on all your activities by default -->
+    <style name="WindowAnimationTransition">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
+    </style>
+
+    <style name="ActionBarTheme" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:background">@color/transparent</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="AppThemeDark" parent="Theme.AppCompat">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/black</item>
+        <item name="colorPrimaryDark">@color/dark</item>
+        <item name="colorAccent">@color/darkPale</item>
+        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
+    </style>
+
+    <!-- Style of tab-->
+    <style name="CustomTabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabIndicatorColor">@color/colorPrimary</item>
+        <item name="tabIndicatorHeight">3dp</item>
+        <item name="tabSelectedTextColor">@android:color/black</item>
+        <item name="android:textSize">@dimen/size_text_larger</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:fontFamily">@font/segoe_ui_bold</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Style of edit text -->
+    <style name="EditTextTheme" parent="Widget.AppCompat.EditText">
+        <item name="colorControlNormal">@color/dark</item>
+        <item name="colorControlActivated">@color/colorPrimaryDark</item>
+        <item name="colorControlHighlight">@color/colorPrimaryDark</item>
+        <item name="android:textSize">@dimen/size_text_all</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:fontFamily">@font/segoe_ui</item>
+    </style>
+
+    <!-- Style of edit text -->
+    <style name="EditTextThemeNormal" parent="Widget.AppCompat.EditText">
+        <item name="colorControlNormal">@color/dark</item>
+        <item name="colorControlActivated">@color/colorPrimaryDark</item>
+        <item name="colorControlHighlight">@color/colorPrimaryDark</item>
+        <item name="android:textSize">@dimen/size_text_input</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:fontFamily">@font/segoe_ui</item>
+    </style>
+
+    <!-- Style of TextView -->
+    <style name="RobotoTextViewStyle" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/segoe_ui</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/size_text_all</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <!-- Style of TextView -->
+    <style name="RobotoTextViewStyleFreeLine" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/segoe_ui</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/size_text_all</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <!-- Style of TextView -->
+    <style name="RobotoTextViewStyleLink" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/segoe_ui</item>
+        <item name="android:textSize">@dimen/size_text_all</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <!-- Style of TextView -->
+    <style name="RobotoTextViewStyleLarger" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/segoe_ui</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/size_text_larger</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <!-- Style of TextView -->
+    <style name="RobotoTextViewStyleLargerWrap" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/segoe_ui</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/size_text_larger</item>
+        <item name="android:ellipsize">none</item>
+        <item name="android:maxLines">100</item>
+        <item name="android:scrollHorizontally">false</item>
+    </style>
+
+    <!-- Style of TextView -->
+    <style name="RobotoTextViewStyleLargerBold" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/segoe_ui_bold</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/size_text_larger</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <!-- Style of TextView -->
+    <style name="RobotoTextViewStyleMini" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/segoe_ui</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/size_text_super_mini</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <!-- Style of TextView -->
+    <style name="RobotoTextViewStyleError" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/segoe_ui_bold</item>
+        <item name="android:textColor">@color/red</item>
+        <item name="android:textSize">@dimen/size_text_error</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <!-- Style of TextView mini-->
+    <style name="RobotoTextViewMiniStyle" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/segoe_ui</item>
+        <item name="android:textColor">@color/dark</item>
+        <item name="android:textSize">@dimen/size_text_button</item>
+    </style>
+
+    <!-- Style of TextView large title -->
+    <style name="RobotoTextViewLargerTitleStyle" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/segoe_ui_bold</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/size_text_larger</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Style of TextView large  -->
+    <style name="RobotoTextViewLargerStyle" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/segoe_ui</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/size_text_larger</item>
+    </style>
+
+    <!-- Style of button -->
+    <style name="RobotoButtonStyle" parent="Widget.AppCompat.Button">
+        <item name="android:fontFamily">@font/segoe_ui_bold</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textSize">@dimen/size_text_larger</item>
+    </style>
+
+    <!-- Style of button post -->
+    <style name="RobotoButtonPostStyle" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:fontFamily">@font/segoe_ui</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">@dimen/size_text_button</item>
+    </style>
+
+    <!-- Style of TextInputLayout -->
+    <style name="TextInputLayoutAppearance" parent="Widget.Design.TextInputLayout">
+        <!-- reference our hint & error styles -->
+        <item name="hintTextAppearance">@style/HintText</item>
+        <item name="errorTextAppearance">@style/ErrorText</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textColorHint">@color/dark</item>
+        <item name="colorControlNormal">@color/dark</item>
+        <item name="colorControlActivated">@color/colorPrimaryDark</item>
+        <item name="colorControlHighlight">@color/green</item>
+        <item name="android:fontFamily">@font/segoe_ui</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <!-- Style of TextInputLayout -->
+    <style name="ErrorText" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/red</item>
+        <item name="android:textSize">@dimen/size_text_error</item>
+        <item name="android:fontFamily">@font/segoe_ui</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <!-- Style of TextInputLayout -->
+    <style name="HintText" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/dark</item>
+        <item name="android:textSize">@dimen/size_text_all</item>
+        <item name="android:fontFamily">@font/segoe_ui</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <!-- Style of tab text -->
+    <style name="tab_text" parent="@android:style/TextAppearance.Widget.TabWidget">
+        <item name="android:textColor">@color/dark</item>
+        <item name="android:textSize">@dimen/size_text_all</item>
+        <item name="android:fontFamily">@font/segoe_ui</item>
+    </style>
+
+    <!-- Style border dialog -->
+    <style name="AppModalStyle" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+
+
+    <style name="AppThemeLight.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+
+    <!-- style of dialog -->
+    <style name="cust_dialog" parent="@android:style/Theme.Holo.Light.Dialog">
+        <item name="android:windowBackground">@drawable/cus_border_dialog</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:windowMinWidthMajor">90%</item>
+        <item name="buttonBarPositiveButtonStyle">
+            @style/Base.Widget.AppCompat.Button.Borderless.MyStyle
+        </item>
+        <item name="buttonBarNegativeButtonStyle">
+            @style/Base.Widget.AppCompat.Button.Borderless.MyStyle
+        </item>
+    </style>
+
+    <!-- Style app base app -->
+    <style name="Base.Widget.AppCompat.Button.Borderless.MyStyle">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">@dimen/size_text_mini</item>
+    </style>
+
+    <!-- style of navigation menu -->
+    <style name="NavigationDrawerStyle" parent="Theme.MaterialComponents.Light">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:fontFamily">@font/segoe_ui</item>
+        <item name="android:textSize">@dimen/size_text_all</item>
+
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">normal</item>
+
+        <!-- Change Overflow Menu ListView Item Height & Property -->
+        <item name="android:listPreferredItemHeightSmall">50dp</item>
+        <item name="android:listPreferredItemPaddingLeft">5dp</item>
+        <item name="android:listPreferredItemPaddingRight">5dp</item>
     </style>
 
 </resources>
