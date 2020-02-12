@@ -2,7 +2,6 @@ package com.dongnh.autosoundmode.view
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.app.NotificationManager
 import android.app.TimePickerDialog
 import android.app.TimePickerDialog.OnTimeSetListener
 import android.content.Context
@@ -20,6 +19,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.dongnh.autosoundmode.R
 import com.dongnh.autosoundmode.const.*
 import com.dongnh.autosoundmode.databinding.ActivityMainBinding
@@ -64,6 +65,14 @@ class MainActivity : AppCompatActivity() {
         setUpEventCLickTime()
         setUpEventClickChange()
         updateModeForView()
+
+        this@MainActivity.dataBinding.viewHistory.layoutManager = LinearLayoutManager(this@MainActivity, RecyclerView.VERTICAL, false)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Call method reload database for show
+        viewModelMain.loadDataFormDbToShow()
     }
 
     /**
@@ -330,11 +339,13 @@ class MainActivity : AppCompatActivity() {
         try {
             val auManager =
                 this@MainActivity.getSystemService(Context.AUDIO_SERVICE) as AudioManager
-            auManager.ringerMode = mode
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && mode == AudioManager.RINGER_MODE_SILENT) {
-                (getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager).setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_NONE)
+            if (auManager.ringerMode != mode) {
+                auManager.ringerMode = mode
             }
+
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && mode == AudioManager.RINGER_MODE_SILENT) {
+//                (getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager).setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_NONE)
+//            }
         } catch (e: Exception) {
             e.printStackTrace()
         }

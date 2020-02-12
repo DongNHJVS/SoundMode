@@ -38,7 +38,7 @@ class SharePreferenceHelper(context: Context) {
         return this@SharePreferenceHelper.sharePreference.getInt(key, -1)
     }
 
-    fun getSharedPreferences(context: Context): SharedPreferences {
+    private fun getSharedPreferences(context: Context): SharedPreferences {
         return context.getSharedPreferences(SHARE_PREFERENCE, Context.MODE_PRIVATE)
     }
 }

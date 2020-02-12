@@ -9,9 +9,14 @@
     <string name="main_btn_cancel">Đặt lại</string>
     <string name="main_btn_exit">Thoát</string>
 
+    <string name="main_view_title_log">Lịch sử</string>
+    <string name="main_view_header_date">Ngày</string>
+    <string name="main_view_header_time">Thời gian</string>
+    <string name="main_view_header_mode">Mode</string>
+
     <string name="main_dialog_mess">Đã đăng ký thành công chế độ tự khởi động bật tắt mode</string>
     <string name="main_dialog_mess_work_day"> theo ngày làm việc.</string>
-    <string name="main_dialog_mess_non_work_day"> cho ngày hiện tại.</string>
+    <string name="main_dialog_mess_non_work_day"> theo ngày.</string>
     <string name="main_dialog_mess_start">Bắt đầu từ</string>
     <string name="main_dialog_mess_end">đến</string>
     <string name="main_dialog_mess_today"> hôm nay</string>

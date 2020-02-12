@@ -7,3 +7,11 @@ const val IS_WORK_DAY = "work_day"
 
 const val TO_NEXT_DAY = "to_next_day"
 const val CURRENT_DATE = "current_date"
+
+// String
+
+const val NORMAL = "Chuông"
+const val VIBRATE = "Rung"
+const val SILENT = "Im lặng"
+const val NOT_KNOW = "Không xác định"
+const val NO_CHANGE = "Chưa ghi nhận"

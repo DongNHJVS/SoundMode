@@ -2,6 +2,7 @@ package com.dongnh.autosoundmode.app
 
 import androidx.multidex.MultiDex
 import androidx.multidex.MultiDexApplication
+import com.dongnh.autosoundmode.di.databaseModule
 import com.dongnh.autosoundmode.di.sharePreferenceModule
 import com.dongnh.autosoundmode.di.viewModelModule
 import com.dongnh.autosoundmode.di.workModule
@@ -29,7 +30,8 @@ class App : MultiDexApplication() {
                 listOf(
                     viewModelModule,
                     sharePreferenceModule,
-                    workModule
+                    workModule,
+                    databaseModule
                 )
             )
         }
