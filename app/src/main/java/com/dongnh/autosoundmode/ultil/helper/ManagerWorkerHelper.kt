@@ -28,6 +28,6 @@ class ManagerWorkerHelper() {
     }
 
     fun addWorkerToManager() {
-        WorkManager.getInstance().enqueueUniquePeriodicWork(SettingWorker.TAG,  ExistingPeriodicWorkPolicy.KEEP, myWork)
+        WorkManager.getInstance().enqueueUniquePeriodicWork(SettingWorker.TAG, ExistingPeriodicWorkPolicy.KEEP, myWork)
     }
 }

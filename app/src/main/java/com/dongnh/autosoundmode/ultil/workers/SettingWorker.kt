@@ -145,6 +145,9 @@ class SettingWorker(val context: Context, params: WorkerParameters) : Worker(con
                 }
                 val logEntity = LogEntity(date = date, time = time, mode = modeString, id = null)
                 insertToDbLog(logEntity)
+            } else {
+                val logEntity = LogEntity(date = date, time = time, mode = NO_CHANGE, id = null)
+                insertToDbLog(logEntity)
             }
         } catch (e: Exception) {
             e.printStackTrace()

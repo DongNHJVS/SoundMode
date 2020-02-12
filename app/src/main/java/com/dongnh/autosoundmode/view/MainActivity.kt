@@ -134,6 +134,11 @@ class MainActivity : AppCompatActivity() {
             setUpDefaultTime()
             initDialogMessage(getString(R.string.main_dialog_mess_cancel_all))
         }
+
+        // Clear all history
+        dataBinding.btnClear.setOnClickListener {
+            viewModelMain.clearHistory()
+        }
     }
 
     /**
