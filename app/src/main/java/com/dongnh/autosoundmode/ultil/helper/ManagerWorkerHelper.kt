@@ -5,7 +5,7 @@ import com.dongnh.autosoundmode.ultil.workers.SettingWorker
 import java.util.concurrent.TimeUnit
 
 @Suppress("DEPRECATION")
-class ManagerWorkerHelper() {
+class ManagerWorkerHelper {
 
     private val periodicBuilder = PeriodicWorkRequest.Builder(SettingWorker::class.java, 15, TimeUnit.MINUTES) // 15 minute
     private val myWork = periodicBuilder.addTag(SettingWorker.TAG).build()

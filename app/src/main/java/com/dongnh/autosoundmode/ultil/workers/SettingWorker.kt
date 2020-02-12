@@ -18,7 +18,7 @@ import timber.log.Timber
 import java.util.*
 
 
-class SettingWorker(val context: Context, params: WorkerParameters) : Worker(context, params) , KoinComponent {
+class SettingWorker(private val context: Context, params: WorkerParameters) : Worker(context, params) , KoinComponent {
 
     companion object {
         val TAG = SettingWorker::class.java.simpleName
@@ -127,20 +127,19 @@ class SettingWorker(val context: Context, params: WorkerParameters) : Worker(con
             if (auManager.ringerMode != mode) {
                 auManager.ringerMode = mode
 
-                var modeString = ""
-                when (mode) {
+                val modeString = when (mode) {
                     AudioManager.RINGER_MODE_NORMAL -> {
-                        modeString = NORMAL
+                        NORMAL
                     }
                     AudioManager.RINGER_MODE_VIBRATE -> {
-                        modeString = VIBRATE
+                        VIBRATE
                     }
                     AudioManager.RINGER_MODE_SILENT -> {
-                        modeString = SILENT
+                        SILENT
                     }
                     else -> {
                         // Not know
-                        modeString = NOT_KNOW
+                        NOT_KNOW
                     }
                 }
                 val logEntity = LogEntity(date = date, time = time, mode = modeString, id = null)

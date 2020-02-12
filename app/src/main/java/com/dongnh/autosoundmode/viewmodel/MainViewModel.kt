@@ -10,7 +10,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 
-class MainViewModel(val logEntityDao: LogEntityDao) : ViewModel() {
+class MainViewModel(private val logEntityDao: LogEntityDao) : ViewModel() {
     val timeStart: MutableLiveData<String> = MutableLiveData()
     val timeEnd: MutableLiveData<String> = MutableLiveData()
     val isWorkday: MutableLiveData<Boolean> = MutableLiveData()
